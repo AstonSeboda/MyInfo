@@ -25,6 +25,12 @@
         }
         .address {
             margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .address p {
+            margin: 0;
         }
         .note {
             background-color: #f9f9f9;
@@ -32,26 +38,62 @@
             padding: 10px;
             margin-top: 20px;
         }
+        .qr-code-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            overflow: auto;
+        }
+        .qr-code-modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 5px;
+            max-width: 300px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>My Cryptocurrency Addresses</h1>
-        <div class="address">
+        <div class="address" id="btc">
             <h2>Bitcoin (BTC)</h2>
             <p>bc1qh3qe2503y7t9k7yrakhu654gtsks8vnz7harmt</p>
+            <button onclick="showQRCode('btc')">Show QR Code</button>
         </div>
-        <div class="address">
+        <div class="address" id="eth">
             <h2>Ethereum (ETH)</h2>
             <p>0xf3a1670d2E9e57f33fAfD8bAD7737070Ee24C648</p>
+            <button onclick="showQRCode('eth')">Show QR Code</button>
         </div>
-        <div class="address">
+        <div class="address" id="ltc">
             <h2>Litcoin (LTC)</h2>
             <p>LcUtJfFuoKJsp9m9KNt8q389UsqmugKExa</p>
+            <button onclick="showQRCode('ltc')">Show QR Code</button>
         </div>
-        <div class="address">
+        <div class="address" id="bch">
             <h2>Bitcoin Cash (BCH)</h2>
             <p>qrt58xkl4lkhe9f7876umwt5rnkmqh5tgc4lwwjhs4</p>
+            <button onclick="showQRCode('bch')">Show QR Code</button>
         </div>
         <!-- Add more cryptocurrency addresses here -->
 
@@ -59,5 +101,26 @@
             <p><strong>Note:</strong> All coins on the Ethereum Network go to my ETH address. I am running a Multi-Currency wallet.</p>
         </div>
     </div>
+
+    <div id="qrCodeModal" class="qr-code-modal">
+        <div class="qr-code-modal-content">
+            <span class="close" onclick="closeQRCodeModal()">&times;</span>
+            <img id="qrCodeImage" src="" alt="QR Code">
+        </div>
+    </div>
+
+    <script>
+        function showQRCode(crypto) {
+            var qrCodeImage = document.getElementById('qrCodeImage');
+            qrCodeImage.src = 'qr_codes/' + crypto + '.png'; // Update path to your QR code images
+            var qrCodeModal = document.getElementById('qrCodeModal');
+            qrCodeModal.style.display = 'block';
+        }
+
+        function closeQRCodeModal() {
+            var qrCodeModal = document.getElementById('qrCodeModal');
+            qrCodeModal.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
